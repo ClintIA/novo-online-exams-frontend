@@ -55,7 +55,7 @@ export function Post({ post }: PostProps) {
             <Avatar src={post.avatarUrl}/>
             <div className={styles.authorInfo}>
               <strong>{post.nome}</strong>
-              <span>{post.tipo}</span>
+              <span>{post.consultorio}</span>
               <span>{publishedDateFormatted}</span>
             </div>
           </div>

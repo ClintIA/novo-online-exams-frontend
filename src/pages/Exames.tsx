@@ -65,8 +65,7 @@ export function Exames() {
             data: new Date(exam.examDate),
             horario: new Date(exam.examDate).toLocaleTimeString(),
             resultado: exam.status,
-            resumo: `Resumo do exame ${exam.exam.exam_name}`,
-            tipo: "Exames Laboratoriais",
+            resumo: `Resumo do exame ${exam.exam.exam_name}`
           }))
         );
 
