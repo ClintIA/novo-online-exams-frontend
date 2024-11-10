@@ -22,7 +22,7 @@ export function Header() {
         </div>
 
         <nav className={`${styles.nav} ${menuOpen ? styles.open : ''}`}>
-          <NavLink to="/" title="Exames" onClick={() => setMenuOpen(false)}>
+          <NavLink to="/exames" title="Exames" onClick={() => setMenuOpen(false)}>
             <Flask className={styles.icon}  />
             Exames
           </NavLink>

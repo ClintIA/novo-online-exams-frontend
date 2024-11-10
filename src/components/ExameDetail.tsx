@@ -24,6 +24,7 @@ export function ExameDetail ({ exame }: ExameDetailProps){
       <h3 >{exame.nome}</h3>
       <p >Consultório: {exame.consultorio}</p>
       <p >Data: {publishedDateFormatted}</p>
+      <p >Status: {exame.resultado}</p>
       
       <div >
         <h3 >Resumo:</h3>

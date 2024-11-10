@@ -1,12 +1,18 @@
 import { BrowserRouter } from 'react-router-dom'
 import { Router } from './Router'
+import AuthProvider from "../src/contexts/AuthContext";
+import { CpfProvider } from '../src/contexts/CpfContext'; 
 
 
 export function App() {
   return (
-      <BrowserRouter>
-          <Router />
+    <CpfProvider>
+      <AuthProvider>
+        <BrowserRouter>
+            <Router />
 
-      </BrowserRouter>
+        </BrowserRouter>
+      </AuthProvider>
+    </CpfProvider>
   )
 }

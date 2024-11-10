@@ -8,6 +8,7 @@
 
 .content{
     min-width: 32rem;
+    max-width: 90%;
     border-radius: 6px;
     padding: 2.5rem 3rem;
     background: var(--white);
@@ -15,7 +16,15 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    box-sizing: border-box;
 
+}
+
+@media (max-width: 768px) {
+    .content {
+        min-width: 90%; /* Reduz a largura mínima em telas menores */
+        padding: 1.5rem; /* Ajusta o padding para telas pequenas */
+    }
 }
 
 .button{
@@ -46,6 +55,8 @@
     color: var(--gray-500);
 }
 
-.title{
-    color: var(--blue-700)
+.title {
+    color: var(--blue-700);
+    font-size: 1.5rem;
+    font-weight: bold; 
 }

@@ -10,7 +10,7 @@ interface ModalDetail {
   }
 
 export function ModalDetail({ exame }: ModalDetail){
-
+    console.log(exame.link)
     return(
         <Dialog.Portal>
         <Dialog.Overlay className={styles.overlay}/>
@@ -23,11 +23,11 @@ export function ModalDetail({ exame }: ModalDetail){
                 <X size={24} />
             </Dialog.Close>
             <ExameDetail exame={exame}/>
-          <button type="submit" className={styles.button}>
+          {/* <button type="submit" className={styles.button}>
             Compartilhar
-          </button>
-          <button type="submit" className={styles.button}>
-            Download do Laudo
+          </button> */}
+          <button type="submit" className={styles.button} onClick={() => window.open(exame.link, "_blank")}>
+            Laudo Completo
           </button>
 
         </Dialog.Content>

@@ -11,6 +11,7 @@ import { ModalDetail } from './ModalDetail';
 export interface Exame {
   id: string;
   nome: string;
+  link: string;
   avatarUrl: string;
   consultorio: string;
   data: Date;
