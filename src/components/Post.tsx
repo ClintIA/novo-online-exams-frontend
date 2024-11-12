@@ -9,16 +9,15 @@ import { ModalDetail } from './ModalDetail';
 
 
 export interface Exame {
-  id: string;
+  id: number;
   nome: string;
-  link: string;
   avatarUrl: string;
+  link: string | null;
   consultorio: string;
-  data: Date;
+  data: string;
   horario: string;
   resultado: string;
   resumo: string;
-  tipo: string;
 }
 
 

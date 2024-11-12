@@ -1,7 +1,7 @@
 import { Header } from "../components/Header";
 import '../global.css';
 import styles from './Exames.module.css';
-import { Post, Exame } from '../components/Post';
+import { Post } from '../components/Post';
 import { ConsultorioDropdown } from '../components/ConsultorioDropdown';
 import { useState, useEffect } from 'react';
 import logoExam from '../assets/icon-clintia.png';
@@ -9,30 +9,66 @@ import { getPatientExams } from '../api/patient-exams';
 import { useAuth } from '../components/hooks/auth';
 
 
-interface Exam {
+// interface Exam {
+//   id: number;
+//   exam_name: string;
+// }
+
+// interface PatientExam {
+//   id: number;
+//   link: string | null;
+//   createdAt: string;
+//   examDate: string;
+//   uploadedAt: string | null;
+//   status: string;
+//   exam: Exam;
+// }
+
+// interface Tenant {
+//   id: number;
+//   name: string;
+//   patientExams: PatientExam[];
+// }
+
+interface Tenant {
   id: number;
-  exam_name: string;
+  name: string;
 }
 
-interface PatientExam {
+interface Patient {
+  id: number;
+  full_name: string;
+}
+
+export interface APIExam {
   id: number;
   link: string | null;
   createdAt: string;
   examDate: string;
   uploadedAt: string | null;
   status: string;
-  exam: Exam;
+  patient: Patient;
+  exam: {
+    exam_name: string;
+    tenant: Tenant;
+  };
 }
 
-interface Tenant {
+export interface MappedExam {
   id: number;
-  name: string;
-  patientExams: PatientExam[];
+  nome: string;
+  avatarUrl: string;
+  link: string | null;
+  consultorio: string;
+  data: string;
+  horario: string;
+  resultado: string;
+  resumo: string;
 }
 
 export function Exames() {
-  const [exames, setExames] = useState<Exame[]>([]);
-  const [filteredExames, setFilteredExames] = useState<Exame[]>([]);
+  const [exames, setExames] = useState<MappedExam[]>([]);
+  const [filteredExames, setFilteredExames] = useState<MappedExam[]>([]);
   const { userId } = useAuth();
   
 
@@ -45,29 +81,41 @@ export function Exames() {
       try {
         const response = await getPatientExams(Number(userId));
 
-        // console.log(response)
-        // console.log(response.data)
+        console.log(response)
+        console.log(response.data)
 
-        if (!response.data || !response.data.exames) {
+        if (!response.data || !response.data.exams || response.data.exams.length === 0) {
           console.log("Sem exames cadastrados");
           setExames([]);
           setFilteredExames([]);
           return;
         }
 
-        const apiExames: Exame[] = response.data.exames.flatMap((tenant: Tenant) =>
-          tenant.patientExams.map((exam: PatientExam) => ({
-            id: exam.id.toString(),
-            nome: exam.exam.exam_name,
-            avatarUrl: logoExam,
-            link: exam.link,
-            consultorio: tenant.name,
-            data: new Date(exam.examDate),
-            horario: new Date(exam.examDate).toLocaleTimeString(),
-            resultado: exam.status,
-            resumo: `Resumo do exame ${exam.exam.exam_name}`
-          }))
-        );
+        // const apiExames: Exame[] = response.data.exames.flatMap((tenant: Tenant) =>
+        //   tenant.patientExams.map((exam: PatientExam) => ({
+        //     id: exam.id.toString(),
+        //     nome: exam.exam.exam_name,
+        //     avatarUrl: logoExam,
+        //     link: exam.link,
+        //     consultorio: tenant.name,
+        //     data: new Date(exam.examDate),
+        //     horario: new Date(exam.examDate).toLocaleTimeString(),
+        //     resultado: exam.status,
+        //     resumo: `Resumo do exame ${exam.exam.exam_name}`
+        //   }))
+        // );
+
+        const apiExames: MappedExam[] = response.data.exams.map((exam: APIExam) => ({
+          id: exam.id,
+          nome: exam.exam.exam_name,
+          avatarUrl: logoExam,
+          link: exam.link,
+          consultorio: exam.exam.tenant.name,
+          data: new Date(exam.examDate).toLocaleDateString('pt-BR'),
+          horario: new Date(exam.examDate).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+          resultado: exam.status,
+          resumo: `Resumo do exame ${exam.exam.exam_name}`
+        }));
 
         setExames(apiExames);
         setFilteredExames(apiExames);

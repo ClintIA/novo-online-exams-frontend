@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 patient-login.ts
+Exames copy.tsx
 
 # Editor directories and files
 .vscode/*

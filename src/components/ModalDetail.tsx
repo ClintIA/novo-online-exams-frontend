@@ -26,8 +26,13 @@ export function ModalDetail({ exame }: ModalDetail){
           {/* <button type="submit" className={styles.button}>
             Compartilhar
           </button> */}
-          <button type="submit" className={styles.button} onClick={() => window.open(exame.link, "_blank")}>
-            Laudo Completo
+          <button
+            type="submit"
+            className={styles.button}
+            onClick={() => exame.link && window.open(exame.link, "_blank")}
+            disabled={!exame.link}
+          >
+            {exame.link ? "Laudo Completo" : "Laudo Indisponível"}
           </button>
 
         </Dialog.Content>
